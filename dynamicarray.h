@@ -19,6 +19,8 @@ class DynamicArray {
   DynamicArray& operator = (DynamicArray const& obj);
   // == Operator
   bool operator == (DynamicArray const& obj);
+  // != Operator
+  bool operator != (DynamicArray const& obj);
   // << Operator
   friend ostream& operator << (ostream& where_to, const DynamicArray& array);
 
@@ -51,7 +53,7 @@ class DynamicArray {
   // Sets array size.
   // If copy == true, copies all values of original array to new array
   // If copy == false, does not copy values
-  void SetSize(int newSize, bool copy = true);  // if copy == true, copy all values that fit into new array, excess values default = 0.
+  void SetSize(int newSize, bool copy = true);
   // Returns true if all array values are unique
   bool AllUnique();
   // removes all instances of param
@@ -63,11 +65,14 @@ class DynamicArray {
   // Sorts array by descending or ascending order, depending on bool param
   void Sort(bool descending = false);
   // Adds new value at specified index, default adds to the end
-  void Add(int &value, int index = -1);
+  void Add(int value, int index = -1);
   // Adds new value to start of array
-  void Prepend(int &value);
+  void Prepend(int value);
   // Adds new value to end of array
-  void Append(int &value); // No shifting needed
+  void Append(int value);
+  // Concatenates two arrays
+  void Concat(DynamicArray const& array);
+
 
 
  private:

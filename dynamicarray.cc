@@ -26,11 +26,14 @@ DynamicArray::~DynamicArray() {
 }
 //HELP!!!!
 DynamicArray& DynamicArray::operator = (DynamicArray const& obj) {
-	if ( *this == obj )
-  	return *this;
-	return DynamicArray(obj);
-  // size_ = obj.size_;
-  // values_ = obj.values_;
+	if ( *this != obj ) {
+    delete [] values_;
+    size_ = obj.size_;
+    values_ = new int[size_];
+    for ( int i = 0; i < size_; i++)
+      values_[i] = obj.values_[i];
+  }
+  return *this;
 }
 bool DynamicArray::operator == (DynamicArray const& obj) {
   if ( size_ != obj.size_ )
@@ -38,6 +41,11 @@ bool DynamicArray::operator == (DynamicArray const& obj) {
   for ( int i = 0; i < size_; i++)
     if ( values_[i] != obj.values_[i])
       return false;
+  return true;
+}
+bool DynamicArray::operator != (DynamicArray const& obj) {
+  if ( *this == obj )
+    return false;
   return true;
 }
 ostream& operator << (ostream& where_to, const DynamicArray& array) {
@@ -143,26 +151,34 @@ void DynamicArray::Sort(bool descending) {
 // Bubble sort
   for (int i = 0; i < (size_ - 1); ++i) {
     for (int j = 0; j < (size_ - i - 1); ++j) {
-        if ((descending && values_[j] < values_[j + 1]) || 
+        if ((descending && values_[j] < values_[j + 1]) ||
             (!descending && values_[j] > values_[j + 1])) {
             std::swap(values_[j], values_[j + 1]); // Swap values
         }
     }
   }
 }
-void DynamicArray::Add(int &value, int index) {
-  if (index < 0 || index >= size_)
-    index = size_ - 1; // Invalid index, only from 0 to size
+void DynamicArray::Add(int value, int index) {
+  if (index < 0 || index > size_)
+    index = size_; // Invalid index, only from 0 to size
   SetSize((size_ + 1), true); // Increase array size by 1, keep existing values
   // Shift all values to the right starting from the end of the array
-    for (int i = size_ - 1; i >= index; --i) {
-      values_[i + 1] = values_[i];
+    for (int i = size_ - 2; i >= index; --i) {
+      values_[i+1] = values_[i];
     }
     values_[index] = value;
   }
-void DynamicArray::Prepend(int &value) {
+void DynamicArray::Prepend(int value) {
   Add(value, 0);
 }
-void DynamicArray::Append(int &value) {
+void DynamicArray::Append(int value) {
   Add(value);
+}
+void DynamicArray::Concat(DynamicArray const& array) {
+  DynamicArray concat(size_ + array.size_);
+  for ( int i = 0; i < size_; i++)
+    concat.values_[i] = values_[i];
+  for ( int i = 0; i < array.size_; i++)
+    concat.values_[size_ + i] = array.values_[i];
+  *this = concat;
 }

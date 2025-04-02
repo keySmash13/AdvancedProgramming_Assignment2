@@ -10,5 +10,9 @@ project2sampletests : project2sampletests.cc dynamicarray.o
 	$(link) $^
 	./a.out
 
+project2tests : project2tests.cc dynamicarray.o
+	$(link) $^
+	./a.out
+
 clean :
 	rm *.o a.out
