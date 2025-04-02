@@ -48,7 +48,7 @@ class DynamicArray {
   // Sets array size.
   // If copy == true, copies all values of original array to new array
   // If copy == false, does not copy values
-  int SetSize(int size, bool copy = true);  // if copy == true, copy all values that fit into new array, excess values default = 0.
+  void SetSize(int newSize, bool copy = true);  // if copy == true, copy all values that fit into new array, excess values default = 0.
   // Returns true if all array values are unique
   bool AllUnique();
   // removes all instances of param
@@ -74,9 +74,9 @@ class DynamicArray {
     if ( index < 1 ) index = size_;
   }
   // Adds new value to start of array
-  void AddFirst(int &value);
+  void Prepend(int &value);
   // Adds new value to end of array
-  void AddLast(int &value); // No shifting needed
+  void Append(int &value); // No shifting needed
 
 
  private:
