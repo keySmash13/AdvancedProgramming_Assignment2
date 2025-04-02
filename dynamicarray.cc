@@ -44,9 +44,7 @@ bool DynamicArray::operator == (DynamicArray const& obj) {
   return true;
 }
 bool DynamicArray::operator != (DynamicArray const& obj) {
-  if ( *this == obj )
-    return false;
-  return true;
+  return !( *this == obj );
 }
 ostream& operator << (ostream& where_to, const DynamicArray& array) {
   for ( int i = 0; i < array.size_-1; i++)
