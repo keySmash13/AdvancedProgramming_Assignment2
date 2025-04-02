@@ -7,9 +7,8 @@ using std::ostream;
 
 class DynamicArray {
  public:
-
   // Creates new DynamicArray
-  DynamicArray(int size = 1);
+  explicit DynamicArray(int size = 1);
   // Copies existing DynamicArray to new DynamicArray
   DynamicArray(const DynamicArray &other);
   // Class destructor
@@ -23,7 +22,6 @@ class DynamicArray {
   bool operator != (DynamicArray const& obj);
   // << Operator
   friend ostream& operator << (ostream& where_to, const DynamicArray& array);
-
   // version that allows one to use the operator in a non-constant setting
   // to update the values in the array
   int& operator[](int i) {
@@ -40,14 +38,12 @@ class DynamicArray {
     return values_[size_ - 1];
   }
 
-
-
   // Methods
 
   // Returns delimiter char
   static char GetDelimeter();
   // Sets delimiter char to param
-  static void SetDelimeter (char delim);
+  static void SetDelimeter(char delim);
   // Returns array size
   int GetSize();
   // Sets array size.
@@ -84,4 +80,4 @@ class DynamicArray {
   void RemoveDuplicates(int value);
 };
 
-#endif
+#endif  // DYNAMICARRAY_H_

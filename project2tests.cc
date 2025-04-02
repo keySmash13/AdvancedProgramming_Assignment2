@@ -53,5 +53,14 @@ int main() {
   cout << "Appending -80:" <<endl;
   b.Append(-80);
   cout << b <<endl;
+  cout << "Sorting asc" << endl;
+  b.Sort();
+  cout << b << endl;
+  cout << "Sorting dsc" << endl;
+  b.Sort(true);
+  cout << b << endl;
+  cout << "Removing duplicate 10s" << endl;
+  b.RemoveDuplicates();
+  cout << b << endl;
 
 }

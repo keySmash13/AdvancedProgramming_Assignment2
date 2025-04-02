@@ -24,9 +24,8 @@ DynamicArray::DynamicArray(const DynamicArray &other) {
 DynamicArray::~DynamicArray() {
   // Destructor
 }
-//HELP!!!!
 DynamicArray& DynamicArray::operator = (DynamicArray const& obj) {
-	if ( *this != obj ) {
+  if ( *this != obj ) {
     delete [] values_;
     size_ = obj.size_;
     values_ = new int[size_];
@@ -50,12 +49,12 @@ ostream& operator << (ostream& where_to, const DynamicArray& array) {
   for ( int i = 0; i < array.size_-1; i++)
     where_to << array.values_[i] << array.delimiter_;
   where_to << array.values_[array.size_ - 1] << std::endl;
-	return where_to;
+  return where_to;
 }
 char DynamicArray::GetDelimeter() {
   return delimiter_;
 }
-void DynamicArray::SetDelimeter (char delim) {
+void DynamicArray::SetDelimeter(char delim) {
   // Ensures delimiter is not null or a control character
   if (delim != '\0' && !iscntrl(delim))
     delimiter_ = delim;
@@ -67,15 +66,15 @@ int DynamicArray::GetSize() {
 }
 void DynamicArray::SetSize(int newSize, bool copy) {
   if (newSize < 1)
-    return; // Ensure valid size
-  int * newValues = new int[newSize]{}; // Allocate new memory, all set to 0
+    return;  // Ensure valid size
+  int * newValues = new int[newSize]{};  // Allocate new memory, all set to 0
 
   if (copy) {
     int minSize;
     if (newSize < size_)
-      minSize = newSize; // Getting smaller, cut off previous values
+      minSize = newSize;  // Getting smaller, cut off previous values
     else
-      minSize = size_; // Getting bigger, copy all previous values
+      minSize = size_;  // Getting bigger, copy all previous values
     for (int i = 0; i < minSize; ++i) {
       newValues[i] = values_[i];
     }
@@ -107,43 +106,42 @@ int DynamicArray::RemoveAll(int value) {
   for ( int i = 0; i < size_; i++ ) {
     if ( values_[i] != value ) {
       values_[index++] = values_[i];
-		}
-	}
-	SetSize(size_-count);
+    }
+  }
+  SetSize(size_-count);
   return count;
 }
 int DynamicArray::FindAndReplace(int find, int replace) {
   int how_many = 0;
-  for ( int i = 0; i < size_; i++ ){
+  for ( int i = 0; i < size_; i++ ) {
     if ( values_[i] == find ) {
       values_[i] = replace;
       how_many++;
     }
   }
-	return how_many;
+  return how_many;
 }
 void DynamicArray::RemoveDuplicates() {
-	for ( int i = 0; i < size_; i++ ) {
-		if ( AllUnique() )
-			return;
-		RemoveDuplicates(values_[i]);
-	}
+  for ( int i = 0; i < size_; i++ ) {
+    if ( AllUnique() )
+      return;
+    RemoveDuplicates(values_[i]);
+  }
 }
 void DynamicArray::RemoveDuplicates(int value) {
-	bool first = true;
-	int index = 0;
-	for ( int i = 0; i < size_; i++ ) {
-		if ( values_[i] == value ) {
-			if (first) {
-				first = false;
-				values_[index++] = values_[i];
-			}
-		}
-		else {
-			values_[index++] = values_[i];
-		}
-	}
-	SetSize(index);
+  bool first = true;
+  int index = 0;
+  for ( int i = 0; i < size_; i++ ) {
+    if ( values_[i] == value ) {
+      if (first) {
+        first = false;
+        values_[index++] = values_[i];
+      }
+    } else {
+      values_[index++] = values_[i];
+    }
+  }
+  SetSize(index);
 }
 void DynamicArray::Sort(bool descending) {
 // Bubble sort
@@ -151,15 +149,15 @@ void DynamicArray::Sort(bool descending) {
     for (int j = 0; j < (size_ - i - 1); ++j) {
         if ((descending && values_[j] < values_[j + 1]) ||
             (!descending && values_[j] > values_[j + 1])) {
-            std::swap(values_[j], values_[j + 1]); // Swap values
+            std::swap(values_[j], values_[j + 1]);  // Swap values
         }
     }
   }
 }
 void DynamicArray::Add(int value, int index) {
   if (index < 0 || index > size_)
-    index = size_; // Invalid index, only from 0 to size
-  SetSize((size_ + 1), true); // Increase array size by 1, keep existing values
+    index = size_;  // Invalid index, only from 0 to size
+  SetSize((size_ + 1), true);  // Increase array size by 1, keep existing values
   // Shift all values to the right starting from the end of the array
     for (int i = size_ - 2; i >= index; --i) {
       values_[i+1] = values_[i];
