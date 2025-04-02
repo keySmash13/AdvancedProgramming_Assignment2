@@ -1,23 +1,26 @@
+// Copyright 2025 Abby Holdcraft
+// Header for Dynamic Array
+#include <ostream>
+using std::ostream;
 #ifndef _DYNAMICARRAY_H_
 #define _DYNAMICARRAY_H_
 
 class DynamicArray {
  public:
 
-  // Constructors and Destructors
+  // Creates new DynamicArray
+  DynamicArray(int size = 1);
+  // Copies existing DynamicArray to new DynamicArray
+  DynamicArray(const DynamicArray &other);
+  // Class destructor
+  ~DynamicArray();
 
-  DynamicArray(int size = 1);  //Init all other values = 0. 
-  DynamicArray(const DynamicArray &other);  // copies existing class to new class 
-  ~DynamicArray();  // Class destructor
-
-
-
-  // Operators
-
-  // TODO figure out how to actually create operators lol
-  void operator=(DynamicArray const& obj);
-  bool operator==(DynamicArray const& obj);
-  // void friend operator<<(DynamicArray const& obj);
+  // = Operator
+  DynamicArray& operator = (DynamicArray const& obj);
+  // == Operator
+  bool operator == (DynamicArray const& obj);
+  // << Operator
+  friend ostream& operator << (ostream& where_to, const DynamicArray& array);
 
   // version that allows one to use the operator in a non-constant setting
   // to update the values in the array
@@ -40,9 +43,9 @@ class DynamicArray {
   // Methods
 
   // Returns delimiter char
-  char GetDelimiter();
+  static char GetDelimeter();
   // Sets delimiter char to param
-  void SetDelimiter (char delim);
+  static void SetDelimeter (char delim);
   // Returns array size
   int GetSize();
   // Sets array size.
@@ -52,27 +55,15 @@ class DynamicArray {
   // Returns true if all array values are unique
   bool AllUnique();
   // removes all instances of param
-  void RemoveAll(int value);
+  int RemoveAll(int value);
   // replaces all instances of find with replace
-  void FindAndReplace(int find, int replace);
+  int FindAndReplace(int find, int replace);
   // Removes all but first instance of value
-  void RemoveDuplicates(int value);
+  void RemoveDuplicates();
   // Sorts array by descending or ascending order, depending on bool param
-  void Sort(bool descending);
-
-  /*
-  NOTES ON ADD/REMOVE:
-  When add/removing values, remember to shift all values over to create or remove space.
-    AKA:
-    RemoveAll(3) on int[] x = {1, 2, 3, 3, 4} has to shift the pointer to 4 left by 2 spaces!
-    Add(&x, 4) will shift all values at index 4, 5, 6, etc to the next index.
-  If array is full when adding, increase array size by 1 to accomodate new value
-  */
-
+  void Sort(bool descending = false);
   // Adds new value at specified index, default adds to the end
-  void Add(int &value, int index = -1) {  // Check that index is valid, if not default value of index is instance.size_
-    if ( index < 1 ) index = size_;
-  }
+  void Add(int &value, int index = -1);
   // Adds new value to start of array
   void Prepend(int &value);
   // Adds new value to end of array
@@ -82,7 +73,10 @@ class DynamicArray {
  private:
   int size_;
   int * values_;
-  static char delimiter_; // (for separator used by <<)
+  static char delimiter_;
+
+  // Removes all but first instance of parameter
+  void RemoveDuplicates(int value);
 };
 
 #endif

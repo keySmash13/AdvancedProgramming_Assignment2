@@ -70,10 +70,16 @@ int main() {
   cout << "Now I'll reset the original to the copy." << endl;
   a = acopy;
   cout << "a = " << a << "\nacopy = " << acopy << endl;
+  //HARD CODE
+  cout << "a = " << a << "\nacopy = " << acopy << endl;
+  
   cout << (acopy == a ? "the copy matches the original\n" :
            "OH NO!! They don't match!!!\n") << endl;
-  cout << "And now I'll add a couple values to the end of the copy ";
+  cout << "And now I'll add a couple values to the end of the copy" << endl;
   acopy.SetSize(acopy.GetSize() + 2);
+  // HARD CODE
+  cout << "a = " << a << "\nacopy = " << acopy << endl;
+  
   acopy[acopy.GetSize() - 1] = acopy[acopy.GetSize() - 2] = 99;
   cout << "Here's the changed array " << acopy << endl;
   cout << "And here's the original " << a << endl;
@@ -85,7 +91,7 @@ int main() {
   cout << "Here is the array after sorting the values in ascending order: "
        << acopy << endl;
   acopy.Sort(true);
-  cout << "Here is the arry after sorting the values in descending order: "
+  cout << "Here is the array after sorting the values in descending order: "
        << acopy << endl;
 
   return 0;
